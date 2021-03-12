@@ -17,7 +17,8 @@ pipeline {
             steps {
                 sh(
                     label: "Deploy pods",
-                    script: """helm install stepik-teachers stepik-teachers"""
+                    script: """#!/usr/bin/env bash
+                    helm install stepik-teachers stepik-teachers"""
                 )
             }
         }
