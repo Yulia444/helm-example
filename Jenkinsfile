@@ -1,10 +1,8 @@
 pipeline {
-    environment {
 
-    }
     agent: any
-    stages{
-        stage("Installing helm "){
+    stages {
+        stage("Installing helm ") {
             steps {
                 sh(
                     label: "Installing helm",
@@ -15,8 +13,8 @@ pipeline {
                 )
             }
         }
-        stage("Deploy pods"){
-            steps{
+        stage("Deploy pods") {
+            steps {
                 sh(
                     label: "Deploy pods",
                     script: """helm install stepik-teachers stepik-teachers"""
