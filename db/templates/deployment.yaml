@@ -38,8 +38,10 @@ spec:
             
             - name: POSTGRES_DB
               value: postgres
+            
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+            
 
 

@@ -34,6 +34,8 @@ spec:
             
             - name: POSTGRES_DB
               value: postgres
+            - name: POSTGRES_HOST
+              value: postgres.default.svc.cluster.local
           ports:
             - name: {{ .Values.release_name }}
               containerPort: 5000
