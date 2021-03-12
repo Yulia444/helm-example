@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.release_name }}
+  labels:
+    run: {{ .Values.release_name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      run: {{ .Values.release_name}}
+  template:
+    metadata: 
+      labels:
+        run: {{ .Values.release_name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['/bin/sh', 'run.sh']
+          env:
+            - name: POSTGRES_USER
+              valueFrom: 
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+            
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+            
+            - name: POSTGRES_DB
+              value: postgres
+          ports:
+            - name: {{ .Values.release_name }}
+              containerPort: 5000
+              protocol: TCP
