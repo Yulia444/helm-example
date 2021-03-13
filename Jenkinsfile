@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     kubernetesDeploy(configs: "stepik-teachers/templates/deployment.yaml", 
-                    kubeconfigId: "kubernetes")
+                    kubeconfigId: "myconfigkube")
                 }
             }
         }
