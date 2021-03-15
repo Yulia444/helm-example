@@ -13,6 +13,11 @@ pipeline {
                 )
             }
         }
+        stage("kubectl") {
+            steps {
+                sh "kubectl apply -f stepik-teachers/templates/deployment.yaml --kubeconfig=./config"
+            }
+        }
         stage("Deploy pods") {
             steps {
                 sh(
