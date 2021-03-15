@@ -15,7 +15,10 @@ pipeline {
         }
         stage("kubectl") {
             steps {
-                sh "kubectl apply -f stepik-teachers/templates/deployment.yaml --kubeconfig=./config"
+                script {
+                    kubernetesDeploy(configs: "stepik-teachers/templates/deployment.yaml", 
+                    kubeconfigId: "myconfigkube")
+                }
             }
         }
         stage("Deploy pods") {
@@ -23,7 +26,6 @@ pipeline {
                 sh(
                     label: "Deploy pods",
                     script: """#!/usr/bin/env bash
-                    KUBECONFIG=./config
                     helm install stepik-teachers stepik-teachers"""
                 )
             }
