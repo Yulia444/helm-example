@@ -17,7 +17,11 @@ pipeline {
         }
         stage("kubectl") {
             steps {
-                sh "kubectl --kubeconfig=./config apply -f stepik-teachers/templates/deployment.yaml"
+                sh(
+                    script: """#!/usr/bin/env bash
+                    kubectl --kubelet-client-certificate=client.crt --kubelet-client-key=client.key
+                    apply -f stepik-teachers/templates/deployment.yaml"""
+                )
             }
         }
         stage("Deploy pods") {
