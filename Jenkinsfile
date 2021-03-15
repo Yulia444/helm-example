@@ -16,8 +16,9 @@ pipeline {
         stage("kubectl") {
             steps {
                 script {
-                    kubernetesDeploy(configs: "stepik-teachers/templates/deployment.yaml", 
-                    kubeconfigId: "kubernetes")
+                    withKubeConfig(credentialsId: "kubesecret") {
+                        sh 'kubectl apply -f stepik-teachers/templates/deployment.yaml'
+                    }
                 }
             }
         }
