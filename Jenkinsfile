@@ -17,7 +17,7 @@ pipeline {
         }
         stage("kubectl") {
             steps {
-                sh "KUBECONFIG=./config kubectl apply -f stepik-teachers/templates/deployment.yaml"
+                sh "kubectl --kubeconfig=./config apply -f stepik-teachers/templates/deployment.yaml"
             }
         }
         stage("Deploy pods") {
